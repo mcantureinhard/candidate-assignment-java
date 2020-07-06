@@ -1,0 +1,16 @@
+CSVs interesting facts:
+
+*Data not normalized over more files
+*One postal community can have multiple political communities
+*Based on the csv data loader KTKZ is the canton code, vs GDEKT. I was unable to verify elsewhere, but they should probably use the same name.
+(i.e. https://www.bfs.admin.ch/bfsstatic/dam/assets/214330/master )
+
+Other:
+Changed interfaces to classes to use @builder and @value which give us nice immutable objects.
+
+First time using plantuml, unfortunately was not able get it to work with more than one relationship (syntax error).
+
+Since we are loading this data in memory I would use hashmaps instead of sets to store the data. Memory usage is the same, but we get a free index.
+We can have functions that return the sets if we want to. Even if we take a bit longer to build our data, we will have worthwhile gains in performance when running.
+
+I would index some of the reverse relationships in memory to avoid doing O(n) operations all the time.
