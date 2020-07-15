@@ -9,14 +9,12 @@ import ch.aaap.assignment.raw.CSVPoliticalCommunity;
 import ch.aaap.assignment.raw.CSVPostalCommunity;
 import ch.aaap.assignment.raw.CSVUtil;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javafx.util.Pair;
 
 public class Application {
 
@@ -61,10 +59,11 @@ public class Application {
 
     // Interesting fact that we can have postal communities that are part of multiple political communities.
     // Had to change my model after I realized
+
     postalCommunities
         .stream()
         .collect(Collectors.groupingBy(
-            po -> new Pair(po.getZipCode(), po.getZipCodeAddition())
+            po -> Arrays.asList(po.getZipCode(), po.getZipCodeAddition())
         )).forEach((zipPair, pcList) -> postalCommunitiesSet.add(
             PostalCommunity.builder()
                 .name(pcList.get(0).getName())
